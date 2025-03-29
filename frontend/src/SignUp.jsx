@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const SignUp = ({ onBack }) => {
-  const [siginInUser, setSiginInUser] = useState({
+  const [siginUpUser, setSiginUpUser] = useState({
     name: "",
     password: "",
   });
