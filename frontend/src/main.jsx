@@ -1,12 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import TradeAction from './TradeAction.jsx'
-import Home from './Home.jsx'
+import App from './App.jsx'
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Home />
-    <TradeAction />
+    <App />
   </StrictMode>
 )
