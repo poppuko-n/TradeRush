@@ -1,27 +1,23 @@
-import axios from 'axios';
 import { useState, useEffect } from 'react';
+import ApiAction from './lib/ApiAction'
 
-function App() {
+function TradeAction() {
   const [askPrice, setAskPrice] = useState();
   const [bidPrice, setBidPrice] = useState();
 
   useEffect(() => {
     const fetchData = () => {
-      axios.get('/api/public/v1/ticker')
-        .then((response) => {
-          const usdJpy = response.data.data.find(item => item.symbol === 'USD_JPY');
-          setAskPrice(usdJpy.ask);
-          setBidPrice(usdJpy.bid);
-        })
-        .catch((error) => {
-          console.error('API取得エラー:', error);
-        });
+      ApiAction.fetchExchange()
+               .then((response) => {
+                setAskPrice(response.ask)
+                setBidPrice(response.bid)
+               })
     };
-
+    // NOTE: 初期設定。
     fetchData(); 
-
+    // NOTE: 1秒間に１度買値と売値を取得し、状態変数を更新する。
     const intervalId = setInterval(fetchData, 1000); 
-
+    // NOTE: コンポーネントがアンマウントされたときに、インターバルを解除して不要な通信を止める。
     return () => clearInterval(intervalId); 
   }, []);
 
@@ -34,4 +30,4 @@ function App() {
   );
 }
 
-export default App;
+export default TradeAction;
