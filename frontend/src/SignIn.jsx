@@ -4,7 +4,6 @@ const SignIn = ({ onBack }) => {
   const [siginInUser, setSiginInUser] = useState({
     name: "",
     password: "",
-    password_confirmaition: null
   });
 
   return (
