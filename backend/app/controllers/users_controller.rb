@@ -13,6 +13,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def login
+    user = User.find_by(name: params[:name])
+    if user && user.authenticate(params[:password])
+      render json: {token: create_token(user.id), status: :ok}
+    else
+      render json: {
+        user: user,
+        errors: "名前またはパスワードが違います。",
+        status: :unauthorized
+      }
+    end
+  end
+
   private
 
   def user_params
