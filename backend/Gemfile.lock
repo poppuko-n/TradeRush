@@ -111,6 +111,8 @@ GEM
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     json (2.10.2)
+    jwt (2.10.1)
+      base64
     kamal (2.5.3)
       activesupport (>= 7.0)
       base64 (~> 0.2)
@@ -328,6 +330,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   debug
+  jwt
   kamal
   mysql2 (~> 0.5)
   puma (>= 5.0)
