@@ -38,6 +38,7 @@ gem "thruster", require: false
 # ここから新規で追加
 gem 'bcrypt', '~> 3.1.7'
 gem 'mysql2', '~> 0.5'
+gem "jwt"
 
 
 
