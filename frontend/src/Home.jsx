@@ -1,6 +1,6 @@
 import homeImage from './assets/home.jpg';
 
-const Home = ({ setIsSignIn, setIsSignUp }) => {
+const Home = ({ setIsSignUp, setIsSignIn }) => {
   return (
     <div className="w-screen h-screen relative overflow-hidden">
       <img
@@ -17,14 +17,14 @@ const Home = ({ setIsSignIn, setIsSignUp }) => {
             bg-white text-black px-6 py-3 mr-4 rounded-lg text-base font-semibold
             hover:bg-blue-500 hover:text-white transition duration-300
           "
-          onClick={() => {setIsSignIn(true)}}>
+          onClick={() => {setIsSignUp(true)}}>
             新規登録
           </button>
           <button className="
             bg-transparent text-white px-6 py-3 border-2 border-white rounded-lg text-base font-semibold
             hover:bg-blue-500 hover:text-white transition duration-300
           "
-          onClick={() => {setIsSignUp(true)}}>
+          onClick={() => {setIsSignIn(true)}}>
             ログイン
           </button>
         </div>
