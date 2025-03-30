@@ -18,7 +18,7 @@ class ApiAction{
                 })
                 }
 
-// NOTE: RailsAPIを用いて、新規登録を実行
+// NOTE: RailsAPIを用いて、新規登録を実行する。
 static createUser(user){
   return axios.post('/api/backend/users', { user: user }, {
   })
@@ -30,8 +30,19 @@ static createUser(user){
       alert(error.response.data.errors.join('\n'));
   });
 }
+
+// NOTE: RailsAPIを用いて、ログインする。
+  static signIn(user){
+    return axios
+      .post('/api/backend/login', user)
+      .then((response)=>{
+        localStorage.setItem('token', response.data.token)
+        alert("ログインしました。")
+      })
+      .catch((error)=>{
+        alert(error.response.data.error)
+      })
+    }
 }
-
-
 
 export default ApiAction;
