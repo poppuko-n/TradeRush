@@ -4,11 +4,12 @@ const SignIn = ({ onBack }) => {
   const [siginInUser, setSiginInUser] = useState({
     name: "",
     password: "",
+    password_confirmaition: null
   });
 
   return (
     <div className="w-full">
-      <h1 className="text-2xl font-bold mb-6 text-center text-indigo-700">新規登録</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center text-indigo-700">ログイン</h1>
 
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700 mb-1">名前</label>

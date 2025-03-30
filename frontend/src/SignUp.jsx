@@ -8,7 +8,7 @@ const SignUp = ({ onBack }) => {
 
   return (
     <div className="w-full">
-      <h1 className="text-2xl font-bold mb-6 text-center text-indigo-700">ログイン</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center text-indigo-700">新規登録</h1>
 
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700 mb-1">名前</label>
@@ -32,7 +32,7 @@ const SignUp = ({ onBack }) => {
         <button
           className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md transition duration-200"
         >
-          ログイン
+          登録
         </button>
         <button
           onClick={onBack}
