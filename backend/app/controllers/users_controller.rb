@@ -9,7 +9,7 @@ class UsersController < ApplicationController
         user: user,
         errors: user.errors.full_messages
       },
-      status: unprocessable_entity
+      status: :unprocessable_entity
     end
   end
 

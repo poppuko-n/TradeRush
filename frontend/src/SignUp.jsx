@@ -1,10 +1,19 @@
 import { useState } from 'react';
+import ApiAction from './lib/ApiAction'
 
 const SignUp = ({ onBack }) => {
-  const [siginUpUser, setSiginUpUser] = useState({
+  const [signUpUser, setSignUpUser] = useState({
     name: "",
     password: "",
+    password_confirmation: null
   });
+
+  const handleCreate = () => {
+    ApiAction.createUser(signUpUser)
+      .then(() => {
+      onBack()
+    })
+  };
 
   return (
     <div className="w-full">
@@ -16,6 +25,8 @@ const SignUp = ({ onBack }) => {
           type="text"
           className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           placeholder="ユーザー名を入力"
+          value={signUpUser.name}
+          onChange={(e)=>setSignUpUser({...signUpUser, name: e.target.value})}
         />
       </div>
 
@@ -25,12 +36,15 @@ const SignUp = ({ onBack }) => {
           type="password"
           className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           placeholder="パスワードを入力"
+          value={signUpUser.password}
+          onChange={(e)=>setSignUpUser({...signUpUser, password: e.target.value})}
         />
       </div>
 
       <div className="flex justify-end space-x-4">
         <button
           className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md transition duration-200"
+          onClick={()=> handleCreate()}
         >
           登録
         </button>
