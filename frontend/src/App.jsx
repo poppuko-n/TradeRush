@@ -4,6 +4,7 @@ import Home from './Home';
 import Modal from './Modal';
 import SignUp from './SignUp.jsx';
 import SignIn from './SignIn';
+import Header from './Header';
 
 const App = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -29,6 +30,8 @@ const App = () => {
     <SignIn onBack={() => setIsSignIn(false)} />
     </Modal>
     }
+
+    <Header />
 
     <TradeAction />
     </>
