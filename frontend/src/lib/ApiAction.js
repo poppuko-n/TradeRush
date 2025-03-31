@@ -23,8 +23,10 @@ static createUser(user){
   return axios.post('/api/backend/users', { user: user }, {
   })
   .then((response) => {
-    localStorage.setItem('token', response.data.token);
+    const token = response.data.token;
+    localStorage.setItem('token', token);
     alert('登録が完了しました。');
+    return token
   })
   .catch((error) => {
       alert(error.response.data.errors.join('\n'));
@@ -36,8 +38,10 @@ static createUser(user){
     return axios
       .post('/api/backend/login', user)
       .then((response)=>{
-        localStorage.setItem('token', response.data.token)
+        const token = response.data.token;
+        localStorage.setItem('token', token)
         alert("ログインしました。")
+        return token;
       })
       .catch((error)=>{
         alert(error.response.data.error)

@@ -1,7 +1,12 @@
+import { useContext } from 'react';
+import { AuthContext } from './contexts/Authcontext.jsx';
+
 const Header = () => {
+  const { setToken } = useContext(AuthContext);
   const onLogout = () => {
     localStorage.removeItem('token');
     alert("ログアウトしました。")
+    setToken(null)
   }
 
   return (

@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ApiAction from './lib/ApiAction'
+import { AuthContext } from './contexts/Authcontext.jsx';
 
 const SignUp = ({ onBack }) => {
+  const { setToken } = useContext(AuthContext);
   const [signUpUser, setSignUpUser] = useState({
     name: "",
     password: "",
@@ -10,8 +12,9 @@ const SignUp = ({ onBack }) => {
 
   const handleCreate = () => {
     ApiAction.createUser(signUpUser)
-      .then(() => {
+      .then((response) => {
       onBack()
+      setToken(response.data)
     })
   };
 
