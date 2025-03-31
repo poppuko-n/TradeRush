@@ -1,4 +1,5 @@
-import { useState} from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from './contexts/Authcontext.jsx';
 import TradeAction from './TradeAction';
 import Home from './Home';
 import Modal from './Modal';
@@ -10,34 +11,38 @@ import Navigation from './Navigation';
 const App = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isSignIn, setIsSignIn] = useState(false);
+  const { isLoggedIn } = useContext(AuthContext);
 
-  return(
+  return (
     <>
-    <Home
-      setIsSignUp={setIsSignUp}
-      setIsSignIn={setIsSignIn}
-     />
+      {isLoggedIn ? (
+        <>
+          <Header />
+          <Navigation />
+          <TradeAction />
+        </>
+      ) : (
+        <>
+          <Home
+            setIsSignUp={setIsSignUp}
+            setIsSignIn={setIsSignIn}
+          />
 
-    {/* NOTE: 新規登録をする場合に登録画面をモーダルで表示する。 */}
-    {isSignUp &&
-    <Modal onBack={() => setIsSignUp(false)}>
-    <SignUp onBack={() => setIsSignUp(false)} />
-    </Modal>
-    }
-    
-    {/* NOTE: ログインをする場合に登録画面をモーダルで表示する。 */}
-    {isSignIn &&
-    <Modal onBack={() => setIsSignIn(false)}>
-    <SignIn onBack={() => setIsSignIn(false)} />
-    </Modal>
-    }
+          {isSignUp && (
+            <Modal onBack={() => setIsSignUp(false)}>
+              <SignUp onBack={() => setIsSignUp(false)} />
+            </Modal>
+          )}
 
-    <Header />
-    <Navigation />
-
-    <TradeAction />
+          {isSignIn && (
+            <Modal onBack={() => setIsSignIn(false)}>
+              <SignIn onBack={() => setIsSignIn(false)} />
+            </Modal>
+          )}
+        </>
+      )}
     </>
-  )
+  );
 };
 
 export default App;
