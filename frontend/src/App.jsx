@@ -5,6 +5,7 @@ import Modal from './Modal';
 import SignUp from './SignUp.jsx';
 import SignIn from './SignIn';
 import Header from './Header';
+import Navigation from './Navigation';
 
 const App = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -32,6 +33,7 @@ const App = () => {
     }
 
     <Header />
+    <Navigation />
 
     <TradeAction />
     </>
