@@ -11,12 +11,14 @@ const Header = () => {
   };
 
   return (
-    <header className="w-full flex justify-between items-center px-6 py-4 bg-gray-800 text-white shadow-lg">
-      <h1 className="text-3xl font-bold tracking-wide">Trade Rush</h1>
+    <header className="w-full flex justify-between items-center px-2 py-3 bg-white shadow-lg">
+      <div className="bg-gray-800 text-white px-6 py-1 rounded-md">
+        <h1 className="text-2xl font-bold tracking-wide">Trade Rush</h1>
+      </div>
 
       <button
         onClick={onLogout}
-        className="border border-white text-white font-medium py-2 px-4 rounded-md hover:bg-gray-800 transition duration-150"
+        className="border border-gray-900 text-gray-900 font-medium py-2 px-4 rounded-md hover:bg-gray-100 transition duration-150"
       >
         ログアウト
       </button>

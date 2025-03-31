@@ -8,7 +8,7 @@ const Navigation = () => {
     <HashRouter>
       <div className="min-h-screen bg-gray-100">
         <nav className="bg-gray-800 shadow-lg">
-          <div className="max-w-5xl mx-auto px-6 py-2 flex justify-center space-x-40">
+          <div className="max-w-5xl mx-auto px-6 py-3 flex justify-center space-x-40">
             <NavLink
               to="/"
               end
