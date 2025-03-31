@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from './contexts/Authcontext.jsx';
-import TradeAction from './TradeAction';
 import Home from './Home';
 import Modal from './Modal';
 import SignUp from './SignUp.jsx';
@@ -19,7 +18,6 @@ const App = () => {
         <>
           <Header />
           <Navigation />
-          <TradeAction />
         </>
       ) : (
         <>
