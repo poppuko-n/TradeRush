@@ -56,10 +56,18 @@ const TradeAction = () => {
   const formattedBid = formatPrice(bidPrice);
 
   return (
-    <div className="text-xl p-6 text-center flex flex-col items-center space-y-6">
-
+    <div className="text-xl text-center flex flex-col items-center space-y-6">
+  
+      {/* NOTE: 取引中メッセージ */}
+      <div className="w-full h-10 flex items-center justify-center">
+        {isTrade && (
+          <div className="bg-red-500 text-white text-lg font-semibold px-4 py-1 rounded">
+            取引中
+          </div>
+        )}
+      </div>
+  
       <div className="flex justify-center space-x-16">
-
         {/* NOTE: 売値表示 */}
         <div className="mb-4"> 
           <div className="flex flex-col items-center text-green-500">
@@ -68,7 +76,7 @@ const TradeAction = () => {
           </div>
           <p className="text-green-500 font-semibold mt-1">Bid / 売値</p>
         </div>
-
+  
         {/* NOTE: 買値表示 */}
         <div className="mb-4">
           <div className="flex flex-col items-center text-red-500">
@@ -78,7 +86,7 @@ const TradeAction = () => {
           <p className="text-red-500 font-semibold mt-1">Ask / 買値</p>
         </div>
       </div>
-
+  
       {/* NOTE: 損益額表示（トレード中のみ） */}
       {isTrade && (
         <p className="text-2xl font-bold text-gray-700">
@@ -87,7 +95,7 @@ const TradeAction = () => {
           </span>
         </p>
       )}
-
+  
       {/* NOTE: 注文ボタン */}
       <div>
         {isTrade ? (
@@ -95,18 +103,18 @@ const TradeAction = () => {
             onClick={handleBid}
             className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-md"
           >
-            売る
+            売却
           </button>
         ) : (
           <button 
             onClick={handleAsk}
             className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md"
           >
-            買う
+            注文
           </button>
         )}
       </div>
-
+  
       {/* 損益額をモーダル表示 */}
       {isModalOpen && (
         <Modal onBack={() => setIsModalOpen(false)}>
@@ -121,7 +129,7 @@ const TradeAction = () => {
         </Modal>
       )}
     </div>
-  );
+  );  
 }
 
 export default TradeAction;
