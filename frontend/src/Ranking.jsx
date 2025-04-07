@@ -1,6 +1,6 @@
 const Ranking = () => {
   return(
-    <>ranking</>
+    <div className="min-h-screen bg-gray-100">ranking</div>
   )
 }
 

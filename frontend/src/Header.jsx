@@ -11,8 +11,8 @@ const Header = () => {
   };
 
   return (
-    <header className="w-full flex justify-between items-center px-2 py-3 bg-white shadow-lg">
-      <div className="bg-gray-800 text-white px-6 py-1 rounded-md">
+    <header className="w-full flex justify-between items-center px-2 py-3 bg-gray-100 shadow-lg">
+      <div className="bg-gray-800 text-white px-6 py-1 rounded-md border-white border">
         <h1 className="text-2xl font-bold tracking-wide">Trade Rush</h1>
       </div>
 

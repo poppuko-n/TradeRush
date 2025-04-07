@@ -56,7 +56,7 @@ const TradeAction = () => {
   const formattedBid = formatPrice(bidPrice);
 
   return (
-    <div className="text-xl text-center flex flex-col items-center space-y-6">
+    <div className="min-h-screen bg-gray-100 font-mono text-xl text-center flex flex-col items-center space-y-6">
   
       {/* NOTE: 取引中メッセージ */}
       <div className="w-full h-10 flex items-center justify-center">
@@ -69,27 +69,32 @@ const TradeAction = () => {
   
       <div className="flex justify-center space-x-16">
         {/* NOTE: 売値表示 */}
-        <div className="mb-4"> 
-          <div className="flex flex-col items-center text-green-500">
-            <span className="text-3xl">{formattedAsk.integer}.</span>
-            <span className="text-7xl">{formattedAsk.decimal}</span>
+        <div className="mb-4">
+          <div className="flex flex-col items-center text-black border border-green-500 rounded-full p-10 w-[220px] h-[220px] justify-center space-y-2">
+            <div className="flex flex-col items-center">
+              <span className="text-3xl">{formattedAsk.integer}.</span>
+              <span className="text-7xl border-b border-black w-[130px] text-center mt-2 pb-2">{formattedAsk.decimal}</span>
+            </div>
+            <p className="text-green-500 font-semibold text-center">Bid / 売値</p>
           </div>
-          <p className="text-green-500 font-semibold mt-1">Bid / 売値</p>
         </div>
+
   
         {/* NOTE: 買値表示 */}
         <div className="mb-4">
-          <div className="flex flex-col items-center text-red-500">
-            <span className="text-3xl">{formattedBid.integer}.</span>
-            <span className="text-7xl">{formattedBid.decimal}</span>
+          <div className='flex flex-col items-center text-black border border-red-500 rounded-full p-10 w-[220px] h-[220px] justify-center space-y-2 '>
+            <div className="flex flex-col items-center ">
+              <span className="text-3xl">{formattedBid.integer}.</span>
+              <span className="text-7xl border-b border-black w-[130px] text-center mt-2 pb-2">{formattedBid.decimal}</span>
+            </div>
+            <p className="text-red-500 font-semibold mt-1">Ask / 買値</p>
           </div>
-          <p className="text-red-500 font-semibold mt-1">Ask / 買値</p>
-        </div>
+          </div>
       </div>
   
       {/* NOTE: 損益額表示（トレード中のみ） */}
       {isTrade && (
-        <p className="text-2xl font-bold text-gray-700">
+        <p className="text-2xl text-black">
           損益額: <span className={displayProfitLoss >= 0 ? 'text-blue-600' : 'text-red-600'}>
             {displayProfitLoss.toFixed(2)} 円
           </span>
@@ -101,14 +106,14 @@ const TradeAction = () => {
         {isTrade ? (
           <button 
             onClick={handleBid}
-            className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-md"
+            className="bg-black hover:bg-gray-600 text-white px-6 py-2 rounded-md"
           >
             売却
           </button>
         ) : (
           <button 
             onClick={handleAsk}
-            className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md"
+            className="bg-black hover:bg-gray-600 text-white px-6 py-2 rounded-md"
           >
             注文
           </button>
@@ -119,7 +124,7 @@ const TradeAction = () => {
       {isModalOpen && (
         <Modal onBack={() => setIsModalOpen(false)}>
           <div className="text-center">
-            <h2 className="text-2xl font-bold mb-4">取引結果</h2>
+            <h2 className="text-2xl mb-4">取引結果</h2>
             <p className="text-xl">
               損益額: <span className={profitLoss >= 0 ? 'text-blue-600' : 'text-red-600'}>
                 {profitLoss.toFixed(2)} 円

@@ -49,7 +49,7 @@ const Navigation = () => {
           </div>
         </nav>
 
-        <div className="p-6">
+        <div>
           <Routes>
             <Route path="/" element={<Service />} />
             <Route path="/trade" element={<TradeAction />} />
