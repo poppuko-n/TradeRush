@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import ApiAction from './lib/ApiAction';
+import Modal from './Modal'; 
 
 // NOTE: 価格を整数部分と小数点以下に分ける
 const formatPrice = (price) => {
@@ -13,6 +14,8 @@ const TradeAction = () => {
   const [handleAskPrice, setHandAskPrice] = useState("");
   const [handleBidPrice, setHandBidPrice] = useState("");
   const [isTrade, setIsTrade] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
 
   // NOTE: 買い注文（売る準備）
   const handleAsk = () => {
@@ -24,10 +27,12 @@ const TradeAction = () => {
   const handleBid = () => {
     setHandBidPrice(bidPrice);
     setIsTrade(false);
+    setIsModalOpen(true);
   };
 
   // NOTE: 損益額の計算
-  const profitLoss = handleAskPrice - bidPrice;
+  const displayProfitLoss = handleAskPrice - bidPrice;
+  const profitLoss = handleAskPrice - handleBidPrice;
 
   useEffect(() => {
     // NOTE: APIからレートを取得
@@ -77,8 +82,8 @@ const TradeAction = () => {
       {/* NOTE: 損益額表示（トレード中のみ） */}
       {isTrade && (
         <p className="text-2xl font-bold text-gray-700">
-          損益額: <span className={profitLoss >= 0 ? 'text-blue-600' : 'text-red-600'}>
-            {profitLoss.toFixed(2)} 円
+          損益額: <span className={displayProfitLoss >= 0 ? 'text-blue-600' : 'text-red-600'}>
+            {displayProfitLoss.toFixed(2)} 円
           </span>
         </p>
       )}
@@ -101,6 +106,20 @@ const TradeAction = () => {
           </button>
         )}
       </div>
+
+      {/* 損益額をモーダル表示 */}
+      {isModalOpen && (
+        <Modal onBack={() => setIsModalOpen(false)}>
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-4">取引結果</h2>
+            <p className="text-xl">
+              損益額: <span className={profitLoss >= 0 ? 'text-blue-600' : 'text-red-600'}>
+                {profitLoss.toFixed(2)} 円
+              </span>
+            </p>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }
