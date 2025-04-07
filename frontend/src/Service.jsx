@@ -1,6 +1,6 @@
 const Service = () => {
   return(
-    <>サービス概要</>
+    <div className="min-h-screen bg-gray-100">サービス概要</div>
   )
 };
 
