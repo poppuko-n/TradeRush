@@ -31,7 +31,7 @@ const TradeAction = () => {
   };
 
   // NOTE: 損益額の計算
-  const displayProfitLoss = handleAskPrice - bidPrice;
+  const displayProfitLoss = isTrade ? handleAskPrice - bidPrice : 0;
   const profitLoss = handleAskPrice - handleBidPrice;
 
   useEffect(() => {
@@ -92,14 +92,18 @@ const TradeAction = () => {
           </div>
       </div>
   
-      {/* NOTE: 損益額表示（トレード中のみ） */}
-      {isTrade && (
-        <p className="text-2xl text-black">
-          損益額: <span className={displayProfitLoss >= 0 ? 'text-blue-600' : 'text-red-600'}>
-            {displayProfitLoss.toFixed(2)} 円
-          </span>
-        </p>
-      )}
+      {/* NOTE: 損益額表示 */}
+      <p className="text-2xl text-black">
+        損益額: <span className={
+          displayProfitLoss > 0 
+            ? 'text-red-600' 
+            : displayProfitLoss < 0 
+            ?'text-bule-600'
+            : 'text-black'}>
+          {displayProfitLoss.toFixed(2)} 円
+        </span>
+      </p>
+      
   
       {/* NOTE: 注文ボタン */}
       <div>
