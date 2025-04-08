@@ -15,7 +15,12 @@ const TradeAction = () => {
   const [handleBidPrice, setHandBidPrice] = useState("");
   const [isTrade, setIsTrade] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [lot, setLot] = useState(1); 
   
+  // NOTE:買った価格（ask）と現在の売値（bid）で損益額を算出
+  const displayProfitLoss = isTrade ? (bidPrice - handleAskPrice) * lot * 1000 : 0;
+  const profitLoss = (handleBidPrice - handleAskPrice) * lot * 1000;
+  const margin = lot * bidPrice * 1000;
 
   // NOTE: 買い注文（売る準備）
   const handleAsk = () => {
@@ -30,9 +35,6 @@ const TradeAction = () => {
     setIsModalOpen(true);
   };
 
-  // NOTE:買った価格（ask）と現在の売値（bid）で損益額を算出
-  const displayProfitLoss = isTrade ? bidPrice - handleAskPrice : 0;
-  const profitLoss = handleBidPrice - handleAskPrice;
 
   useEffect(() => {
     // NOTE: APIからレートを取得
@@ -46,7 +48,7 @@ const TradeAction = () => {
     // NOTE: 初回実行
     fetchData(); 
     // NOTE: 1秒ごとに更新
-    const intervalId = setInterval(fetchData, 1500); 
+    const intervalId = setInterval(fetchData, 1000); 
     // NOTE: クリーンアップ
     return () => clearInterval(intervalId); 
   }, []);
@@ -59,7 +61,7 @@ const TradeAction = () => {
     <div className="min-h-screen bg-gray-100 font-mono text-xl text-center flex flex-col items-center space-y-6">
   
       {/* NOTE: 取引中メッセージ */}
-      <div className="w-full h-10 flex items-center justify-center">
+      <div className="w-full h-10 flex items-center justify-center mt-2">
         {isTrade && (
           <div className="bg-red-500 text-white text-lg font-semibold px-4 py-1 rounded">
             取引中
@@ -91,19 +93,49 @@ const TradeAction = () => {
           </div>
           </div>
       </div>
-  
-      {/* NOTE: 損益額表示 */}
-      <p className="text-2xl text-black">
-        損益額: <span className={
-          displayProfitLoss > 0 
-            ? 'text-red-600' 
-            : displayProfitLoss < 0 
-            ?'text-blue-600'
-            : 'text-black'}>
-          {displayProfitLoss.toFixed(3)} 円
-        </span>
-      </p>
-  
+
+      <div className="flex flex-col gap-4 mt-4 w-full max-w-md">
+        {/* 保有資産（左寄せ） */}
+        <div className="text-black text-2xl py-3 w-full text-left">
+          保有資産: ¥1,000,000
+        </div>
+
+        {/* ロット数入力（左寄せ + flexで揃える） */}
+        <div className="w-full">
+          <label className="text-lg flex items-center">
+            <span>取引ロット数：</span>
+            <input 
+              type="number"
+              value={lot}
+              min={1}
+              onChange={(e) => setLot(Number(e.target.value))}
+              className="ml-2 text-xl font-semibold px-2 py-1 w-24 text-right"
+            />
+          </label>
+        </div>
+
+        {/* 必要証拠金表示 */}
+        <div className="w-full">
+          <p className="text-lg text-left">
+            必要証拠金：<span className="text-xl font-semibold">
+              ¥{Math.floor(margin).toLocaleString()}
+            </span>
+          </p>
+        </div>
+
+        {/* 損益額表示 */}
+        <p className="text-2xl text-black text-left">
+          損益額: <span className={
+            displayProfitLoss > 0 
+              ? 'text-red-600' 
+              : displayProfitLoss < 0 
+              ? 'text-blue-600'
+              : 'text-black'}>
+            {displayProfitLoss.toFixed(0)} 円
+          </span>
+        </p>
+      </div>
+
       {/* NOTE: 注文ボタン */}
       <div>
         {isTrade ? (
@@ -135,7 +167,7 @@ const TradeAction = () => {
                 : profitLoss < 0
                 ? 'text-blue-600'
                 : 'text-black'}>
-                {profitLoss.toFixed(3)} 円
+                {profitLoss.toFixed(0)} 円
               </span>
             </p>
           </div>
