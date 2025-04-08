@@ -94,13 +94,13 @@ const TradeAction = () => {
           </div>
       </div>
 
-      <div className="flex flex-col gap-4 mt-4 w-full max-w-md">
-        {/* 保有資産（左寄せ） */}
+      <div className="border border-black rounded-2xl py-4 px-8 flex flex-col gap-10 mt-4 w-full max-w-md">
+        {/* 保有資産 */}
         <div className="text-black text-2xl py-3 w-full text-left">
           保有資産: ¥1,000,000
         </div>
 
-        {/* ロット数入力（左寄せ + flexで揃える） */}
+        {/* ロット数入力 */}
         <div className="w-full">
           <label className="text-lg flex items-center">
             <span>取引ロット数：</span>
@@ -109,7 +109,7 @@ const TradeAction = () => {
               value={lot}
               min={1}
               onChange={(e) => setLot(Number(e.target.value))}
-              className="ml-2 text-xl font-semibold px-2 py-1 w-24 text-right"
+              className="ml-2 text-xl px-2 py-1 w-24 text-right"
             />
           </label>
         </div>
@@ -117,7 +117,7 @@ const TradeAction = () => {
         {/* 必要証拠金表示 */}
         <div className="w-full">
           <p className="text-lg text-left">
-            必要証拠金：<span className="text-xl font-semibold">
+            必要証拠金：<span className="text-xl">
               ¥{Math.floor(margin).toLocaleString()}
             </span>
           </p>
