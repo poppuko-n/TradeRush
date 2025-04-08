@@ -30,9 +30,9 @@ const TradeAction = () => {
     setIsModalOpen(true);
   };
 
-  // NOTE: 損益額の計算
-  const displayProfitLoss = isTrade ? handleAskPrice - bidPrice : 0;
-  const profitLoss = handleAskPrice - handleBidPrice;
+  // NOTE:買った価格（ask）と現在の売値（bid）で損益額を算出
+  const displayProfitLoss = isTrade ? bidPrice - handleAskPrice : 0;
+  const profitLoss = handleBidPrice - handleAskPrice;
 
   useEffect(() => {
     // NOTE: APIからレートを取得
@@ -46,7 +46,7 @@ const TradeAction = () => {
     // NOTE: 初回実行
     fetchData(); 
     // NOTE: 1秒ごとに更新
-    const intervalId = setInterval(fetchData, 1000); 
+    const intervalId = setInterval(fetchData, 1500); 
     // NOTE: クリーンアップ
     return () => clearInterval(intervalId); 
   }, []);
@@ -98,12 +98,11 @@ const TradeAction = () => {
           displayProfitLoss > 0 
             ? 'text-red-600' 
             : displayProfitLoss < 0 
-            ?'text-bule-600'
+            ?'text-blue-600'
             : 'text-black'}>
-          {displayProfitLoss.toFixed(2)} 円
+          {displayProfitLoss.toFixed(3)} 円
         </span>
       </p>
-      
   
       {/* NOTE: 注文ボタン */}
       <div>
@@ -130,8 +129,13 @@ const TradeAction = () => {
           <div className="text-center">
             <h2 className="text-2xl mb-4">取引結果</h2>
             <p className="text-xl">
-              損益額: <span className={profitLoss >= 0 ? 'text-blue-600' : 'text-red-600'}>
-                {profitLoss.toFixed(2)} 円
+              損益額: <span className={
+                profitLoss > 0 
+                ? 'text-red-600' 
+                : profitLoss < 0
+                ? 'text-blue-600'
+                : 'text-black'}>
+                {profitLoss.toFixed(3)} 円
               </span>
             </p>
           </div>
