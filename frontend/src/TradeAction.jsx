@@ -19,14 +19,14 @@ const TradeAction = () => {
   const [handleBidPrice, setHandBidPrice] = useState(0);
   const [isTrade, setIsTrade] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [lot, setLot] = useState(1); 
+  const [lot, setLot] = useState(0); 
   const [capital, setCapital] = useState(2000000);
   const [leverage, setLeverage] = useState(1);
 
   
   // NOTE:買った価格（ask）と現在の売値（bid）で損益額を算出
   const displayProfitLoss = isTrade ? (bidPrice - handleAskPrice) * lot * 1000 : 0;
-  const profitLoss = ((handleBidPrice - handleAskPrice) * lot * 1000).toFixed(2);
+  const profitLoss = (handleBidPrice - handleAskPrice) * lot * 1000;
   const margin = lot * bidPrice * 1000 / leverage;
   const isTradeAction = capital >= margin;
 
@@ -108,19 +108,21 @@ const TradeAction = () => {
         </div>
   
         <div className="border border-black rounded-2xl py-2 px-8 flex flex-col gap-12 w-full max-w-md shadow-2xl">
-          {/* 保有資産 */}
-          <div className="text-black text-2xl py-3 w-full text-left">
-            保有資産: {Math.floor(capital).toLocaleString()}
-          </div>
-  
-          {/* 必要証拠金表示 */}
-          <div className="w-full">
-            <p className="text-2xl text-left">
-              必要証拠金：<span className="text-2xl">
-                ¥{Math.floor(margin).toLocaleString()}
-              </span>
-            </p>
-          </div>
+        {/* 保有資産 */}
+        <div className="text-2xl py-3 text-left flex justify-between w-full">
+          <span className="min-w-[140px]">保有資産　：</span>
+          <span className="[font-variant-numeric:tabular-nums]">
+            ¥{Math.floor(capital).toLocaleString()}
+          </span>
+        </div>
+
+        {/* 証拠金 */}
+        <div className="text-2xl py-3 text-left flex justify-between w-full">
+          <span className="min-w-[140px]">必要証拠金：</span>
+          <span className="[font-variant-numeric:tabular-nums]">
+            ¥{Math.floor(margin).toLocaleString()}
+          </span>
+        </div>
 
           {/* ロット数入力 */}
           <div className="w-full">
@@ -131,7 +133,13 @@ const TradeAction = () => {
               alt="マイナスボタン"
               onClick={() => setLot(prev => Math.max(1, prev-1))} 
               className=' h-8 w-8 cursor-pointer bg-gray-300 rounded p-1 transition duration-700" '/>
-              <p>{lot}</p>
+              <input 
+              type="number"
+              className='w-12 text-right'
+              value={lot}
+              placeholder='0'
+              onChange={(e)=>setLot(Number(e.target.value))}
+               />
               <img 
               src={AddButton} 
               alt="プラスボタン"
@@ -150,7 +158,7 @@ const TradeAction = () => {
               alt="マイナスボタン"
               onClick={() => setLeverage(prev => Math.max(1, prev-1))} 
               className=' h-8 w-8 cursor-pointer bg-gray-300 rounded p-1 transition duration-700" '/>
-              <p>{leverage}</p>
+              <p className='w-14 text-center'>{leverage}</p>
               <img 
               src={AddButton} 
               alt="プラスボタン"
@@ -168,7 +176,7 @@ const TradeAction = () => {
                 : displayProfitLoss < 0 
                 ? 'text-blue-600'
                 : 'text-black'}>
-              {displayProfitLoss.toFixed(0)} 円
+              {Math.floor(displayProfitLoss).toLocaleString()} 円
             </span>
           </p>
   
