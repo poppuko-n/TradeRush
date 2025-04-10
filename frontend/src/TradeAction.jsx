@@ -5,6 +5,7 @@ import AddButton from './assets/add.svg';
 import MinusButton from './assets/subtract_circle.svg';
 import LeftMen from './assets/left_men.png';
 import RightWomen from './assets/right_women.png';
+import Help from './assets/help.svg';
 
 // NOTE: 価格を整数部分と小数点以下に分ける
 const formatPrice = (price) => {
@@ -22,6 +23,7 @@ const TradeAction = () => {
   const [lot, setLot] = useState(0); 
   const [capital, setCapital] = useState(2000000);
   const [leverage, setLeverage] = useState(1);
+  const [isHelp, setIsHelp] = useState(false);
 
   
   // NOTE:買った価格（ask）と現在の売値（bid）で損益額を算出
@@ -41,6 +43,8 @@ const TradeAction = () => {
     setHandBidPrice(bidPrice);
     setIsTrade(false);
     setIsModalOpen(true);
+    setCapital(prev => prev + profitLoss);
+
   };
 
   useEffect(() => {
@@ -126,7 +130,7 @@ const TradeAction = () => {
 
           {/* ロット数入力 */}
           <div className="w-full">
-            <label className="text-2xl flex items-center gap-4">
+            <label className="text-xl flex items-center gap-4">
               <span>取引ロット：</span>
               <img 
               src={MinusButton} 
@@ -135,7 +139,7 @@ const TradeAction = () => {
               className=' h-8 w-8 cursor-pointer bg-gray-300 rounded p-1 transition duration-700" '/>
               <input 
               type="number"
-              className='w-12 text-right'
+              className='w-14 text-right'
               value={lot}
               placeholder='0'
               onChange={(e)=>setLot(Number(e.target.value))}
@@ -151,7 +155,7 @@ const TradeAction = () => {
 
           {/* レバレッジ入力 */}
           <div className="w-full">
-            <label className="text-2xl flex items-center gap-4">
+            <label className="text-xl flex items-center gap-4">
               <span>レバレッジ：</span>
               <img 
               src={MinusButton} 
@@ -166,6 +170,11 @@ const TradeAction = () => {
               className='h-8 w-8 cursor-pointer bg-gray-300 rounded p-1 transition duration-700" '
               />
             </label>
+            <img
+            src={Help} 
+            alt="レバレッジヘルプ"
+            className='ml-10 cursor-pointer'
+            onClick={()=>setIsHelp(true)} />
           </div>
           
           {/* 損益額表示 */}
@@ -247,6 +256,29 @@ const TradeAction = () => {
           </div>
         </Modal>
       )}
+
+      {isHelp && (
+        <Modal onBack={() => setIsHelp(false)}>
+          <div className="text-center px-4 py-6 space-y-4">
+            <h2 className="text-2xl font-bold">レバレッジとは？</h2>
+            <p className="text-base text-left leading-relaxed">
+              少ない資金で大きな金額の取引ができる仕組みです。<br />
+              例）レバレッジが2倍なら、10万円の資金で20万円分の取引が可能。<br />
+              リターンを大きくできる一方で、損失も同様に大きくなるため注意が必要です。
+            </p>
+            <p className="text-base text-left font-semibold text-red-500">
+              最大で10倍まで設定できます。
+            </p>
+            <button
+              onClick={() => setIsHelp(false)}
+              className="bg-gray-600 hover:bg-black text-white px-6 py-2 rounded-md mt-4"
+            >
+              閉じる
+            </button>
+          </div>
+        </Modal>
+      )}
+
     </div>
   );
   
