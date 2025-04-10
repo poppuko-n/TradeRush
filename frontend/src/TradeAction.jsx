@@ -29,7 +29,7 @@ const TradeAction = () => {
   // NOTE:買った価格（ask）と現在の売値（bid）で損益額を算出
   const displayProfitLoss = isTrade ? (bidPrice - handleAskPrice) * lot * 1000 : 0;
   const profitLoss = (handleBidPrice - handleAskPrice) * lot * 1000;
-  const margin = lot * bidPrice * 1000 / leverage;
+  const margin = lot * askPrice * 1000 / leverage;
   const isTradeAction = capital >= margin;
 
   // NOTE: 買い注文（売る準備）
@@ -40,12 +40,13 @@ const TradeAction = () => {
 
   // NOTE: 売り注文（損益確定）
   const handleBid = () => {
+    const result = (bidPrice - handleAskPrice) * lot * 1000; 
     setHandBidPrice(bidPrice);
     setIsTrade(false);
+    setCapital(prev => prev + result);
     setIsModalOpen(true);
-    setCapital(prev => prev + profitLoss);
-
   };
+  
 
   useEffect(() => {
     // NOTE: APIからレートを取得
