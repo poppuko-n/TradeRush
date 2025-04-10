@@ -20,7 +20,7 @@ const TradeAction = () => {
   const [handleBidPrice, setHandBidPrice] = useState(0);
   const [isTrade, setIsTrade] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [lot, setLot] = useState(0); 
+  const [lot, setLot] = useState(1); 
   const [capital, setCapital] = useState(2000000);
   const [leverage, setLeverage] = useState(1);
   const [isHelp, setIsHelp] = useState(false);
@@ -112,9 +112,9 @@ const TradeAction = () => {
 
         </div>
   
-        <div className="border border-black rounded-2xl py-2 px-8 flex flex-col gap-12 w-full max-w-md shadow-2xl">
+        <div className="border border-black rounded-2xl py-2 px-10 flex flex-col gap-12 w-full max-w-md shadow-2xl">
         {/* 保有資産 */}
-        <div className="text-2xl py-3 text-left flex justify-between w-full">
+        <div className="text-2xl py-2 text-left flex justify-between w-full ">
           <span className="min-w-[140px]">保有資産　：</span>
           <span className="[font-variant-numeric:tabular-nums]">
             ¥{Math.floor(capital).toLocaleString()}
@@ -163,11 +163,17 @@ const TradeAction = () => {
               alt="マイナスボタン"
               onClick={() => setLeverage(prev => Math.max(1, prev-1))} 
               className=' h-8 w-8 cursor-pointer bg-gray-300 rounded p-1 transition duration-700" '/>
-              <p className='w-14 text-center'>{leverage}</p>
+              <input 
+              type="number"
+              className='w-14 text-right'
+              value={leverage}
+              placeholder='0'
+              onChange={(e)=>setLeverage(Number(e.target.value))}
+               />
               <img 
               src={AddButton} 
               alt="プラスボタン"
-              onClick={ ()=> setLeverage(prev=> Math.min(10, prev+1))}
+              onClick={ ()=> setLeverage(prev=> Math.min(25, prev+1))}
               className='h-8 w-8 cursor-pointer bg-gray-300 rounded p-1 transition duration-700" '
               />
             </label>
@@ -268,7 +274,7 @@ const TradeAction = () => {
               リターンを大きくできる一方で、損失も同様に大きくなるため注意が必要です。
             </p>
             <p className="text-base text-left font-semibold text-red-500">
-              最大で10倍まで設定できます。
+              最大で25倍まで設定できます。
             </p>
             <button
               onClick={() => setIsHelp(false)}
