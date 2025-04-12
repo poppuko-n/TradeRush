@@ -3,7 +3,7 @@ class TradeLogsController < ApplicationController
 
   def create
     profit = params[:profitLoss]
-    TradeLogs.create!(
+    TradeLog.create!(
       user: @current_user,
       profit_loss: profit
     )

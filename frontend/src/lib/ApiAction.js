@@ -66,7 +66,9 @@ static createUser(user){
   
   static sendTradeLog(token, profitLoss){
     return axios
-    .post('/api/backend/create',{profitLoss: profitLoss},{
+    .post('/api/backend/create',
+      { profitLoss: profitLoss},
+      {
       headers: {
         Authorization: `Bearer ${token}` 
       }

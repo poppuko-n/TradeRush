@@ -24,4 +24,8 @@ class ApplicationController < ActionController::API
     token = JWT.encode(payload, secret_key)
     token
   end
+
+  def render_unauthorized(message)
+    render json: { error: message }, status: :unauthorized
+  end
 end
