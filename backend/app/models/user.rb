@@ -3,4 +3,5 @@ class User < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :password, presence: true
+  validates :capital, presence:true 
 end
