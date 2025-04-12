@@ -1,9 +1,14 @@
 class UsersController < ApplicationController
-  
+  before_action :authenticate_user, {only: [:action]}
+
   def create
     user = User.new(user_params)
+    user.capital = 2_000_000
     if user.save
-      render json:{ token: create_token(user.id), status: :created}
+      render json:{ 
+        token: create_token(user.id),
+        capital: user.capital
+        status: :created}
     else
       render json: {
         user: user,
@@ -22,6 +27,20 @@ class UsersController < ApplicationController
         user: user,
         errors: "名前またはパスワードが違います。",
         status: :unauthorized
+      }
+    end
+  end
+
+  def action
+    user=User.find(@current_user.id)
+    if user
+      render json: {
+        capital: user.capital,
+        status: ok
+      }
+    else
+      render json: {
+        errors: "ユーザーが見つかりません。"
       }
     end
   end

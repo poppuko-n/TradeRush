@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
 
     begin
       decoded_code = JWT.encode(token, secret_key)
-      @cuurent_user = User.find(decoded_code[0]["user_id"])
+      @current_user = User.find(decoded_code[0]["user_id"])
     rescue
       ActiveRecord::RecordNotFound
       render_unauthorized("ユーザーが見つかりません。")
