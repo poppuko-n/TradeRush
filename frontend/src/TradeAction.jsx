@@ -42,14 +42,12 @@ const TradeAction = () => {
 
   // NOTE: 売り注文（損益確定）
   const handleBid = () => {
-    const result = (bidPrice - handleAskPrice) * lot * 1000; 
     setHandBidPrice(bidPrice);
     setIsTrade(false);
-    setCapital(prev => prev + result);
     setIsModalOpen(true);
-    ApiAction.updateCapital(token);
+    ApiAction.sendTradeLog(token, profitLoss)
+    .then(response=>{setCapital(response.data.capital)});
   };
-  
 
   useEffect(() => {
     // 総資産を取得

@@ -62,6 +62,19 @@ static createUser(user){
         console.error("資産情報の取得に失敗しました", error);
       });
   }
+
+  
+  static sendTradeLog(token, profitLoss){
+    return axios
+    .post('/api/backend/create',
+      { profitLoss: profitLoss},
+      {
+      headers: {
+        Authorization: `Bearer ${token}` 
+      }
+    }
+    )
+  };
 }
 
 export default ApiAction;
