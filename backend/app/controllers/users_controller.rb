@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     if user.save
       render json:{ 
         token: create_token(user.id),
-        capital: user.capital
+        capital: user.capital,
         status: :created}
     else
       render json: {
@@ -32,19 +32,11 @@ class UsersController < ApplicationController
   end
 
   def action
-    user=User.find(@current_user.id)
-    if user
-      render json: {
-        capital: user.capital,
-        status: ok
-      }
-    else
-      render json: {
-        errors: "ユーザーが見つかりません。"
-      }
-    end
+    render json: {
+      capital: @current_user.capital
+    }, status: :ok
   end
-
+  
   private
 
   def user_params
