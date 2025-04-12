@@ -47,6 +47,21 @@ static createUser(user){
         alert(error.response.data.error)
       })
     }
+  // 取引前に総資産を取得
+  static getCapital(token) {
+    return axios
+      .get('/api/backend/action', {
+        headers: {
+          Authorization: `Bearer ${token}` 
+        }
+      })
+      .then(response => {
+        return response.data;
+      })
+      .catch(error => {
+        console.error("資産情報の取得に失敗しました", error);
+      });
+  }
 }
 
 export default ApiAction;

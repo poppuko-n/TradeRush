@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import ApiAction from './lib/ApiAction';
 import Modal from './Modal'; 
 import AddButton from './assets/add.svg';
@@ -6,6 +6,7 @@ import MinusButton from './assets/subtract_circle.svg';
 import LeftMen from './assets/left_men.png';
 import RightWomen from './assets/right_women.png';
 import Help from './assets/help.svg';
+import {AuthContext} from './contexts/Authcontext'
 
 // NOTE: 価格を整数部分と小数点以下に分ける
 const formatPrice = (price) => {
@@ -21,10 +22,11 @@ const TradeAction = () => {
   const [isTrade, setIsTrade] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [lot, setLot] = useState(1); 
-  const [capital, setCapital] = useState(2000000);
+  const [capital, setCapital] = useState(0);
   const [leverage, setLeverage] = useState(1);
   const [isHelp, setIsHelp] = useState(false);
 
+  const { token } = useContext(AuthContext);
   
   // NOTE:買った価格（ask）と現在の売値（bid）で損益額を算出
   const displayProfitLoss = isTrade ? (bidPrice - handleAskPrice) * lot * 1000 : 0;
@@ -45,12 +47,18 @@ const TradeAction = () => {
     setIsTrade(false);
     setCapital(prev => prev + result);
     setIsModalOpen(true);
+    ApiAction.updateCapital(token);
   };
   
 
   useEffect(() => {
-    // NOTE: APIからレートを取得
+    // 総資産を取得
+    ApiAction.getCapital(token).then(response =>{
+      setCapital(response.capital)
+    })
+    
     const fetchData = () => {
+      // NOTE: APIからレートを取得
       ApiAction.fetchExchange().then((response) => {
         setAskPrice(response.ask);
         setBidPrice(response.bid);
