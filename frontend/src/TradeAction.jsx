@@ -45,7 +45,8 @@ const TradeAction = () => {
     setHandBidPrice(bidPrice);
     setIsTrade(false);
     setIsModalOpen(true);
-    ApiAction.sendTradeLog(token, profitLoss);
+    ApiAction.sendTradeLog(token, profitLoss)
+    .then(response=>{setCapital(response.data.capital)});
   };
 
   useEffect(() => {

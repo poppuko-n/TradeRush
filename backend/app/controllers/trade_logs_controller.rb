@@ -11,6 +11,8 @@ class TradeLogsController < ApplicationController
       capital: (@current_user.capital + profit).to_i
     )
 
-    render json:{ message: "トレードログと資産を更新しました。"}, status: :created
+    render json:{ 
+      message: "トレードログと資産を更新しました。",
+      capital: @current_user.capital}, status: :created
   end
 end
