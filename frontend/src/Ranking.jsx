@@ -1,3 +1,4 @@
+import { useState, useEffect} from 'react';
 import TopImage from './assets/ranking_top.svg'
 import First from './assets/ranking_first.svg'
 import Secount from './assets/ranking_secound.svg'
@@ -6,15 +7,18 @@ import Forth from './assets/ranking_forth.svg'
 import Fifth from './assets/ranking_fifth.svg'
 import LeftWomen from './assets/ranking_left.svg'
 import RightWomen from './assets/ranking_right.svg'
+import ApiAction from './lib/ApiAction';
 
 const Ranking = () => {
-  const users = [
-    { name: 'hoge', capital: 2500000 },
-    { name: 'huga', capital: 2400000 },
-    { name: 'hoge', capital: 2300000 },
-    { name: 'huga', capital: 2200000 },
-    { name: 'hoge', capital: 2100000 }
-  ];
+  const [users, setUsers] = useState([]);
+
+  useEffect(()=>{
+    ApiAction.getRanking()
+    .then(response=>{
+      console.log(response)
+      setUsers(response)
+    })
+  }, [])
 
   const medals = [First, Secount, Third, Forth, Fifth];
 
