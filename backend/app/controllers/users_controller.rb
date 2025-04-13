@@ -36,6 +36,15 @@ class UsersController < ApplicationController
       capital: @current_user.capital
     }, status: :ok
   end
+
+  def ranking
+    users = User.order(capital: :desc)
+                .limit(5)
+                .select(:id, :name, :capital)
+    render json: {
+      users: users
+    }, status: :ok
+  end
   
   private
 

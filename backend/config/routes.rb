@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post "/login", to: "users#login"
   get "/action", to: "users#action"
   post "/create", to: "trade_logs#create"
+  get "/ranking", to: "users#ranking"
 
   # Defines the root path route ("/")
   # root "posts#index"

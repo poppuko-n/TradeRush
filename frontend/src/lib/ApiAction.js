@@ -63,7 +63,7 @@ static createUser(user){
       });
   }
 
-  
+  // 損益額を送信
   static sendTradeLog(token, profitLoss){
     return axios
     .post('/api/backend/create',
@@ -75,6 +75,15 @@ static createUser(user){
     }
     )
   };
+
+  // 総資産のランキングを取得
+  static getRanking(){
+    return axios
+    .get('/api/backend/ranking')
+    .then(response=>{
+      return response.data.users
+    })
+  }
 }
 
 export default ApiAction;
